@@ -12,7 +12,7 @@ device = config.device
 
 
 class DrownDataset(Dataset):
-    def __init__(self, img_path, image_label_dict, image_processor=ImageDataProcess.image_array_normalize):
+    def __init__(self, img_path, image_label_dict, image_processor=ImageDataProcess.image_normalize):
         self.img_dir_name = []
         self.img_dir_label = []
         for k, v in image_label_dict.items():

@@ -18,7 +18,6 @@ class LeNet(nn.Module):
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
         self.fc4 = nn.Linear(10, num_class)
-        self.softmax= nn.Softmax(dim=1)
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))

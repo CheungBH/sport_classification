@@ -23,22 +23,22 @@ model_type = config.train_type
 if __name__ == "__main__":
     os.makedirs(model_save_path, exist_ok=True)
     if pre_train_model_name == "LeNet":
-        drown_model = sport_model.LeNet(class_nums).to(device)
+        model = sport_model.LeNet(class_nums).to(device)
     else:
-        drown_model = sport_model.SportModel(class_nums, pre_train_model_name, pre_train_model_path,
+        model = sport_model.SportModel(class_nums, pre_train_model_name, pre_train_model_path,
                                                        feature_extract).model.to(device)
 
-    params_to_update = drown_model.parameters()
+    params_to_update = model.parameters()
     print("Params to learn:")
 
     if feature_extract:
         params_to_update = []
-        for name, param in drown_model.named_parameters():
+        for name, param in model.named_parameters():
             if param.requires_grad:
                 params_to_update.append(param)
                 print("\t", name)
     else:
-        for name, param in drown_model.named_parameters():
+        for name, param in model.named_parameters():
             if param.requires_grad:
                 print("\t", name)
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     log_save_path = os.path.join(model_save_path, model_str.replace(".pth", "_log.txt"))
 
     is_inception = pre_train_model_name == "inception"
-    silent_detect_model, hist = trainer.ModelTrainer.train_drown_model(drown_model, data_loader.dataloaders_dict, criterion,
+    silent_detect_model, hist = trainer.ModelTrainer.train_drown_model(model, data_loader.dataloaders_dict, criterion,
                                                       optimizer_ft, num_epochs=num_epochs, is_inception=is_inception,
                                                                  model_save_path=os.path.join(model_save_path, model_str),
                                                                         log_save_path= log_save_path)
