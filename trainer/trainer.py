@@ -15,37 +15,38 @@ device = config.device
 
 class ModelTrainer(object):
     def __init__(self, model_type, model, size):
-        self.model_type = model_type
-        self.model = model
-        self.fake_sample = []
-        if model_type == "attack":
-            self.positive_folder = "data/test/face_whole/positive".format(self.model_type)
-            self.attack_fake_folder = "data/test/attack/fake"
-            for fake_name in os.listdir(self.attack_fake_folder):
-                self.fake_sample.append(os.path.join(self.attack_fake_folder, fake_name))
-        else:
-            self.positive_folder = "data/test/{}/positive".format(self.model_type)
-        self.negative_folder = "data/test/{}/negative".format(self.model_type)
-        self.positive_sample = []
-        self.negative_sample = []
-        self.size = size
-        self.image_normalize = ImageDataProcess.image_array_normalize
-        self.positive_result = []
-        self.negative_result = []
-        self.fake_result = []
-        self.pos_test_info = []
-        self.neg_test_info = []
-        self.fake_wrong = []
-        self.attack_pos_threshold = 0.4
-        self.result_writer = ''
-        self.output_file = ''
-        self.fake_threshold = 0.8
-        for pos_name in os.listdir(self.positive_folder):
-            self.positive_sample.append(os.path.join(self.positive_folder, pos_name))
-        for neg_name in os.listdir(self.negative_folder):
-            self.negative_sample.append(os.path.join(self.negative_folder, neg_name))
-        self.img_name = ''
-        self.model_save_path = ''
+        pass
+        # self.model_type = model_type
+        # self.model = model
+        # self.fake_sample = []
+        # if model_type == "attack":
+        #     self.positive_folder = "data/test/face_whole/positive".format(self.model_type)
+        #     self.attack_fake_folder = "data/test/attack/fake"
+        #     for fake_name in os.listdir(self.attack_fake_folder):
+        #         self.fake_sample.append(os.path.join(self.attack_fake_folder, fake_name))
+        # else:
+        #     self.positive_folder = "data/test/{}/positive".format(self.model_type)
+        # self.negative_folder = "data/test/{}/negative".format(self.model_type)
+        # self.positive_sample = []
+        # self.negative_sample = []
+        # self.size = size
+        # self.image_normalize = ImageDataProcess.image_array_normalize
+        # self.positive_result = []
+        # self.negative_result = []
+        # self.fake_result = []
+        # self.pos_test_info = []
+        # self.neg_test_info = []
+        # self.fake_wrong = []
+        # self.attack_pos_threshold = 0.4
+        # self.result_writer = ''
+        # self.output_file = ''
+        # self.fake_threshold = 0.8
+        # for pos_name in os.listdir(self.positive_folder):
+        #     self.positive_sample.append(os.path.join(self.positive_folder, pos_name))
+        # for neg_name in os.listdir(self.negative_folder):
+        #     self.negative_sample.append(os.path.join(self.negative_folder, neg_name))
+        # self.img_name = ''
+        # self.model_save_path = ''
 
     def test_img(self, image):
         img_ls = []
@@ -314,7 +315,7 @@ class ModelTrainer(object):
         return self.model, val_acc_history
 
     @staticmethod
-    def train_drown_model(model, dataloaders, criterion, optimizer, num_epochs=25, is_inception=False,
+    def train_sport_model(model, dataloaders, criterion, optimizer, num_epochs=25, is_inception=False,
                            model_save_path="./", log_save_path=""):
         since = time.time()
         val_acc_history = []

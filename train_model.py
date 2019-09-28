@@ -47,11 +47,11 @@ if __name__ == "__main__":
     data_loader = dataset.DataLoader()
 
     time_str = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-    model_str = model_type + "_silent_%s_%s.pth" % (pre_train_model_name, time_str)
+    model_str = model_type + "_%s_%s.pth" % (pre_train_model_name, time_str)
     log_save_path = os.path.join(model_save_path, model_str.replace(".pth", "_log.txt"))
 
     is_inception = pre_train_model_name == "inception"
-    silent_detect_model, hist = trainer.ModelTrainer.train_drown_model(model, data_loader.dataloaders_dict, criterion,
+    silent_detect_model, hist = trainer.ModelTrainer.train_sport_model(model, data_loader.dataloaders_dict, criterion,
                                                       optimizer_ft, num_epochs=num_epochs, is_inception=is_inception,
                                                                  model_save_path=os.path.join(model_save_path, model_str),
                                                                         log_save_path= log_save_path)

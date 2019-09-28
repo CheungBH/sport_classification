@@ -54,20 +54,23 @@ train_class_nums = len(img_label_dict)
 
 
 # 自动训练参数
-auto_train_type = 'golf'
-autotrain_folder = "0822"
+auto_train_type = 'golf_ske'
+autotrain_folder = "0928"
 val_ratio_ls = [0.2]
 epoch_ls = [25]
-pre_train_ls = ["resnet18", "resnet34", "resnet50", "inception"]
+pre_train_ls = ["mobilenet"]
 learning_rate_ls = [0.001]
 
 auto_golf_label_dict = {"backswing": 0, "final": 1}
 auto_yoga_label_dict = {"tree": 0, "crescent": 1}
+auto_golf_ske_label_dict = {"backswing": 0, "standing": 1, "finish":2}
 
 if auto_train_type == "golf":
     auto_train_label_dict = auto_golf_label_dict
 elif auto_train_type == "yoga":
     auto_train_label_dict = auto_yoga_label_dict
+elif auto_train_type == "golf_ske":
+    auto_train_label_dict =  auto_golf_ske_label_dict
 else:
     raise ValueError("Wrong train type!")
 

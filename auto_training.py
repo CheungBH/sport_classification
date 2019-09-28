@@ -1,5 +1,5 @@
 from model import sport_model
-from trainer import trainer
+from trainer.trainer import ModelTrainer
 from dataset import dataset
 from config import config
 import torch.nn as nn
@@ -56,10 +56,10 @@ class AutoTrainer(object):
 
     def load_model(self):
         if self.pre_train_model_name == "LeNet":
-            self.silent_model = sport_model.LeNet(self.class_num).to(device)
+            self.sport_model = sport_model.LeNet(self.class_num).to(device)
         else:
-            self.silent_model = sport_model.SportModel(self.class_num, self.pre_train_model_name, self.pre_model_path, feature_extract).model.to(device)
-        params_to_update = self.silent_model.parameters()
+            self.sport_model = sport_model.SportModel(self.class_num, self.pre_train_model_name, self.pre_model_path, feature_extract).model.to(device)
+        params_to_update = self.sport_model.parameters()
         self.optimizer_ft = optim.Adam(params_to_update, lr=self.lr)
 
     def record(self):
@@ -77,8 +77,9 @@ class AutoTrainer(object):
         self.load_model()
         os.makedirs(self.model_save_folder, exist_ok=True)
         self.data_loader = dataset.DataLoader_Auto(self.data_src, label_dict, self.batch_size)
-        MT = trainer.ModelTrainer(train_type, self.silent_model, self.size)
-        MT.train_with_test(self.data_loader.dataloaders_dict, self.criterion, self.optimizer_ft, self.epoch, self.is_inception, self.model_save_path, self.log_save_path)
+        # MT = trainer.ModelTrainer(train_type, self.silent_model, self.size)
+        # MT.train_with_test(self.data_loader.dataloaders_dict, self.criterion, self.optimizer_ft, self.epoch, self.is_inception, self.model_save_path, self.log_save_path)
+        ModelTrainer.train_sport_model(self.sport_model, self.data_loader.dataloaders_dict, self.criterion, self.optimizer_ft, self.epoch, self.is_inception, self.model_save_path, self.log_save_path)
         print("train model done, save model to %s" % os.path.join(self.model_save_path, self.model_str))
         self.record()
 
