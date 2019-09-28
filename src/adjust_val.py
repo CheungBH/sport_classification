@@ -4,7 +4,7 @@ import shutil
 
 
 val_ratio = 0.3
-class_mark = "screen_origin"
+class_mark = "all"
 
 
 class ImgAdjuster(object):
@@ -66,5 +66,5 @@ class ImgAdjuster(object):
 
 
 if __name__ == '__main__':
-    A = ImgAdjuster(val_ratio, "drown", class_mark)
+    A = ImgAdjuster(val_ratio, "golf_ske", class_mark)
     A.run()

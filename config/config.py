@@ -13,7 +13,7 @@ cuda_flag = torch.cuda.is_available()
 image_normalize_mean = [0.485, 0.456, 0.406]
 image_normalize_std = [0.229, 0.224, 0.225]
 
-train_type = 'test'
+train_type = 'golf_ske'
 
 
 '''
@@ -37,6 +37,7 @@ pre_train_model_path = os.path.join(project_path, "model/pre_train_model/%s.pth"
 # 训练模型保存路径
 config_model_save_path = os.path.join(project_path, "saved/model/individual/", train_type)
 golf_label_dict = {"backswing": 0, "final": 1}
+golf_ske_label_dict = {"backswing": 0, "standing": 1, "finish": 2}
 yoga_label_dict = {"tree":0, "crescent": 1}
 test_label_dict = {"class1": 0, "class2":1, "class3":2}
 
@@ -44,8 +45,8 @@ if train_type == "golf":
     img_label_dict = golf_label_dict
 elif train_type == "yoga":
     img_label_dict = yoga_label_dict
-elif train_type == "test":
-    img_label_dict = test_label_dict
+elif train_type == "golf_ske":
+    img_label_dict = golf_ske_label_dict
 else:
     raise ValueError("Your type is wrong. Please check again")
 
