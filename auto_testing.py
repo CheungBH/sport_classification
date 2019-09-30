@@ -1,5 +1,5 @@
 from config import config
-from inference.image_inference import DrownModelInference
+from inference.image_inference import SportModelInference
 import os
 import cv2
 import numpy as np
@@ -69,7 +69,7 @@ class AutoTester(object):
         self.pre_model_path = os.path.join("model/pre_train_model/%s.pth" % self.pre_model_name)
 
     def load_model(self):
-        self.model = DrownModelInference(self.pre_model_name, self.pre_model_path, self.path, self.num_class)
+        self.model = SportModelInference(self.pre_model_name, self.pre_model_path, self.path, self.num_class)
 
     def test_img(self):
         for video_name in os.listdir(self.sample_path):
