@@ -3,6 +3,7 @@ import cv2
 
 step = 3
 main_folder = '../data/src/video/golf0210_skeleton'
+selected_class = "downswing"
 
 
 class VideoProcessor(object):
@@ -31,5 +32,6 @@ class VideoProcessor(object):
 
 if __name__ == '__main__':
     for action in os.listdir(main_folder):
-        VP = VideoProcessor(os.path.join(main_folder, action))
-        VP.process()
+        if action == selected_class and selected_class:
+            VP = VideoProcessor(os.path.join(main_folder, action))
+            VP.process()

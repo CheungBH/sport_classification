@@ -2,7 +2,7 @@ import os
 import random
 import shutil
 
-
+catag = "golf_ske"
 val_ratio = 0.3
 class_mark = "all"
 
@@ -11,12 +11,12 @@ class ImgAdjuster(object):
     def __init__(self, val_r, src, mark):
         self.val_ratio = val_r
         self.data_src = src
-        if os.path.isdir("../data"):
-            self.train_src = os.path.join("../data", self.data_src, "train")
-            self.val_src = os.path.join("../data", self.data_src, 'val')
-        else:
+        if os.path.isdir("data"):
             self.train_src = os.path.join("data", self.data_src, "train")
             self.val_src = os.path.join("data", self.data_src, 'val')
+        else:
+            self.train_src = os.path.join("../data", self.data_src, "train")
+            self.val_src = os.path.join("../data", self.data_src, 'val')
         self.type = os.listdir(self.train_src)
         self.train_path = ''
         self.val_path = ''
@@ -27,7 +27,8 @@ class ImgAdjuster(object):
     def adjust_img(self, class_type):
         self.train_path = os.path.join(self.train_src, class_type)
         self.val_path = os.path.join(self.val_src, class_type)
-        self.makedir()
+        os.makedirs(self.train_path, exist_ok=True)
+        os.makedirs(self.val_path, exist_ok=True)
         self.train_ls = os.listdir(self.train_path)
         self.val_ls = os.listdir(self.val_path)
         total_num = len(self.train_ls) + len(self.val_ls)
@@ -44,10 +45,6 @@ class ImgAdjuster(object):
                     shutil.move(os.path.join(self.val_path, pic), self.train_path)
                 except shutil.Error:
                     pass
-
-    def makedir(self):
-        os.makedirs(self.train_path, exist_ok=True)
-        os.makedirs(self.val_path, exist_ok=True)
 
     def run(self):
         print("Adjusting validation proportion now...")
@@ -66,5 +63,5 @@ class ImgAdjuster(object):
 
 
 if __name__ == '__main__':
-    A = ImgAdjuster(val_ratio, "golf_ske", class_mark)
+    A = ImgAdjuster(val_ratio, catag, class_mark)
     A.run()

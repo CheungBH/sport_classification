@@ -12,5 +12,7 @@ def delete(path):
 
 
 if __name__ == "__main__":
-    delete(train_path)
-    delete(val_path)
+    # delete(train_path)
+    # delete(val_path)
+    path = r'C:\Users\hkuit164\Desktop\sport_classification\data\src\video\golf0210_skeleton\standing\frame'
+    Utils.delete_wrong(path)
