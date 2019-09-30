@@ -42,6 +42,7 @@ class AutoTrainer(object):
         self.is_inception = self.pre_train_model_name == "inception"
         self.size = 224
         self.batch_size = 64
+        self.sport_model = ''
 
     def get_pretrain_info(self):
         self.pre_model_path = "model/pre_train_model/{}.pth".format(self.pre_train_model_name)
@@ -76,7 +77,7 @@ class AutoTrainer(object):
         self.get_pretrain_info()
         self.load_model()
         os.makedirs(self.model_save_folder, exist_ok=True)
-        self.data_loader = dataset.DataLoader_Auto(self.data_src, label_dict, self.batch_size)
+        self.data_loader = dataset.DataLoader_Auto(self.data_src, label_dict, self.batch_size, self.size)
         # MT = trainer.ModelTrainer(train_type, self.silent_model, self.size)
         # MT.train_with_test(self.data_loader.dataloaders_dict, self.criterion, self.optimizer_ft, self.epoch, self.is_inception, self.model_save_path, self.log_save_path)
         ModelTrainer.train_sport_model(self.sport_model, self.data_loader.dataloaders_dict, self.criterion, self.optimizer_ft, self.epoch, self.is_inception, self.model_save_path, self.log_save_path)

@@ -30,7 +30,7 @@ epoch_nums = 20
 
 pre_train_model_name = "mobilenet"
 # 模型的图片输入尺寸
-input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224, "CNN":224, "LeNet": 224, "mobilenet":224, "shufflenet": 224}
+input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224, "CNN":224, "LeNet": 28, "mobilenet":224, "shufflenet": 224}
 image_input_size = input_size_dict[pre_train_model_name]
 pre_train_model_path = os.path.join(project_path, "model/pre_train_model/%s.pth" % pre_train_model_name)
 
@@ -58,7 +58,7 @@ auto_train_type = 'golf_ske'
 autotrain_folder = "0929_trymodels"
 val_ratio_ls = [0.2]
 epoch_ls = [25]
-pre_train_ls = ["mobilenet", "shufflenet", "LeNet", "inception", "resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]
+pre_train_ls = ["LeNet", "inception", "resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]
 learning_rate_ls = [0.001]
 
 auto_golf_label_dict = {"backswing": 0, "final": 1}
