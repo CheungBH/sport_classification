@@ -187,6 +187,14 @@ class SportModel(object):
             self.set_parameter_requires_grad(self.model, feature_extract)
             num_ftrs = self.model.fc.in_features
             self.model.fc = nn.Linear(num_ftrs, num_classes)
+        elif model_name == "mobilenet":
+            self.model = models.mobilenet_v2()
+            self.model.load_state_dict(torch.load(model_path, map_location=device))
+            self.set_parameter_requires_grad(self.model, feature_extract)
+            self.classifier = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(self.model.last_channel, num_classes),
+            )
         else:
             raise ValueError("Your pretrain model name is wrong!")
 

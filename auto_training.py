@@ -24,7 +24,6 @@ learning_rate_ls = config.learning_rate_ls
 class AutoTrainer(object):
     def __init__(self, pre_name, epo, lr):
         self.pre_train_model_name = pre_name
-        self.silent_model = ''
         self.criterion = nn.CrossEntropyLoss()
         self.data_src = os.path.join("data", train_type)
         self.data_loader = ''
@@ -34,7 +33,7 @@ class AutoTrainer(object):
         self.epoch = epo
         self.lr = lr
         self.time_str = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-        self.model_str = train_type + "_silent_%s_%s.pth" % (self.pre_train_model_name, self.time_str)
+        self.model_str = train_type + "_%s_%s.pth" % (self.pre_train_model_name, self.time_str)
         self.model_save_folder = os.path.join("saved/model/", mark, train_type, self.pre_train_model_name)
         self.log_save_path = os.path.join(self.model_save_folder, self.model_str.replace(".pth", "_log.txt"))
         self.model_save_path = os.path.join(self.model_save_folder, self.model_str)

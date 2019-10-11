@@ -1,4 +1,3 @@
-import config.config
 from inference.image_inference import SportModelInference
 import os
 import cv2
@@ -6,6 +5,8 @@ from openpyxl import Workbook
 import torch
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+class_dict = ["backswing", "standing", "followthrough"]
+num_class = len(class_dict)
 
 
 class ModelTester(object):
@@ -14,7 +15,6 @@ class ModelTester(object):
         self.pre_model_name = ''
         self.model_type = ''
         self.pre_model_path = ''
-        self.num_class = 0
         self.model = ''
         self.sample_name_list = []
         self.sample_path = s_path
@@ -26,7 +26,7 @@ class ModelTester(object):
         self.negative_record = []
         self.record = []
         self.record_path = r_path
-        self.num_class = 2
+        self.num_class = num_class
 
     def get_pretrain(self):
         if "_resnet18" in self.path:
@@ -60,6 +60,8 @@ class ModelTester(object):
             image = cv2.imread(os.path.join(sample, video_name))
             print(self.video_name)
             self.flag, self.score = self.model.test_image(image)
+            idx = self.score[0].tolist().index(max(self.score[0].tolist()))
+            print("Predicted action is: {}".format(class_dict[idx]))
             self.record_result()
 
     def record_result(self):
@@ -91,12 +93,12 @@ class ModelTester(object):
     def test_model(self):
         self.get_model_info()
         self.test_img(self.sample_path)
-        self.write_result()
+        # self.write_result()
 
 
 if __name__ == "__main__":
-    model_path = r""
-    sample_path = r''
+    model_path = "test/model/golf_ske_shufflenet_2019-10-11-12-42-10.pth"
+    sample_path = 'test/test1'
     record_path = model_path.replace(".pth", '_result.xlsx')
     Tester = ModelTester(model_path, sample_path, record_path)
     Tester.test_model()

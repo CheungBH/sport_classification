@@ -28,7 +28,7 @@ feature_extract = False
 batch_size = 64
 epoch_nums = 20
 
-pre_train_model_name = "mobilenet"
+pre_train_model_name = "shufflenet"
 # 模型的图片输入尺寸
 input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224, "CNN":224, "LeNet": 28, "mobilenet":224, "shufflenet": 224}
 image_input_size = input_size_dict[pre_train_model_name]
@@ -38,8 +38,8 @@ pre_train_model_path = os.path.join(project_path, "model/pre_train_model/%s.pth"
 config_model_save_path = os.path.join(project_path, "saved/model/individual/", train_type)
 golf_label_dict = {"backswing": 0, "final": 1}
 golf_ske_label_dict = {"backswing": 0, "standing": 1, "finish": 2}
-yoga_label_dict = {"tree":0, "crescent": 1}
-test_label_dict = {"class1": 0, "class2":1, "class3":2}
+yoga_label_dict = {"tree": 0, "crescent": 1}
+test_label_dict = {"class1": 0, "class2": 1, "class3": 2}
 
 if train_type == "golf":
     img_label_dict = golf_label_dict

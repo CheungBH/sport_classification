@@ -19,11 +19,11 @@ feature_extract = config.feature_extract
 
 
 class SportModelInference(object):
-    def __init__(self, pre_train_name, pre_train_path, model_path, class_nums=2):
+    def __init__(self, class_nums, pre_train_name, pre_train_path, model_path):
         self.sport_model = sport_model.SportModel(class_nums, pre_train_name, pre_train_path, feature_extract).model.to(device)
         self.sport_model.load_state_dict(torch.load(model_path, map_location=device))
         self.sport_model_inference = ModelInference(self.sport_model)
-        self.image_normalize = ImageDataProcess.image_normalize
+        self.image_normalize = ImageDataProcess.image_array_normalize
 
     def test_image(self, img):
         img_tensor_list = []
