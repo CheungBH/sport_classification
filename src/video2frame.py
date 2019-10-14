@@ -35,3 +35,6 @@ if __name__ == '__main__':
         if action == selected_class and selected_class:
             VP = VideoProcessor(os.path.join(main_folder, action))
             VP.process()
+#     path = "../../Datas/ice_hockey"
+#     VP = VideoProcessor(path)
+#     VP.process()

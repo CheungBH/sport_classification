@@ -55,11 +55,11 @@ train_class_nums = len(img_label_dict)
 
 # 自动训练参数
 auto_train_type = 'golf_ske'
-autotrain_folder = "0929_trymodels"
-val_ratio_ls = [0.2]
+autotrain_folder = "1014"
+val_ratio_ls = [0.1, 0.2, 0.3]
 epoch_ls = [25]
-pre_train_ls = ["LeNet", "inception", "resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]
-learning_rate_ls = [0.001]
+pre_train_ls = ["shufflenet"]
+learning_rate_ls = [0.001, 0.0005]
 
 auto_golf_label_dict = {"backswing": 0, "final": 1}
 auto_yoga_label_dict = {"tree": 0, "crescent": 1}
@@ -77,7 +77,7 @@ else:
 auto_class_num = len(auto_train_label_dict)
 
 # 自动测试参数
-model_folder = 'test/model/0826'
+model_folder = 'test/model/1014'
 log = os.path.join(model_folder, "log.txt")
 autotest_threshold = 0.4
 positive_sample = r''

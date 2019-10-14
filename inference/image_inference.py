@@ -1,18 +1,10 @@
 # -*- coding:utf-8 -*-
 from __future__ import print_function
-import sys
-import cv2
-import time
-from PIL import Image
 from config import config
 from model import sport_model
 from inference.model_inference import ModelInference
 import torch
-import torchvision.transforms as transforms
-import numpy as np
 from dataset.data_preprocess import ImageDataProcess
-from torch.autograd import Variable
-from torchvision.datasets.folder import default_loader
 
 device = config.device
 feature_extract = config.feature_extract

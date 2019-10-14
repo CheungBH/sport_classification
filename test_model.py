@@ -103,4 +103,3 @@ if __name__ == "__main__":
     Tester = ModelTester(model_path, sample_path, record_path)
     Tester.test_model()
 
-

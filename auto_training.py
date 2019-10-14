@@ -95,7 +95,7 @@ class AutoTrainer(object):
 
 if __name__ == "__main__":
     cnt = 0
-    total_num = len(epoch_ls) * len(pre_train_ls) * len(val_ratio_ls)
+    total_num = len(epoch_ls) * len(pre_train_ls) * len(val_ratio_ls) * len(learning_rate_ls)
     for val in val_ratio_ls:
         for cls in label_dict.keys():
             IA = adjust_val.ImgAdjuster(val, train_type, cls)
