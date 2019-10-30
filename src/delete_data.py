@@ -1,8 +1,8 @@
 import os
 import random
 
-main_path = r'../data\golf_ske\train\standing'
-select_num = 800
+main_path = r'..\data\yoga\train\tree_right'
+select_num = 420
 
 pic_path = os.listdir(main_path)
 numList = random.sample(range(0, len(pic_path)), len(pic_path) - select_num)

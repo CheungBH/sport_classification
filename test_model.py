@@ -97,7 +97,7 @@ class ModelTester(object):
 
 
 if __name__ == "__main__":
-    model_path = "test/model/golf_ske_shufflenet_2019-10-11-12-42-10.pth"
+    model_path = "test/model/golf_ske_resnet34_2019-10-09-20-03-45.pth"
     sample_path = 'test/test1'
     record_path = model_path.replace(".pth", '_result.xlsx')
     Tester = ModelTester(model_path, sample_path, record_path)

@@ -48,7 +48,7 @@ class SportDataset(Dataset):
             return _image_object, _label
 
 
-class AutoSportDataset(object):
+class AutoSportDataset(Dataset):
     def __init__(self, img_path, image_label_dict, input_size,image_processor=ImageDataProcess.image_normalize):
         self.img_dir_name = []
         self.img_dir_label = []
