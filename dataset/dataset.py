@@ -37,22 +37,22 @@ class SportDataset(Dataset):
         image_name = self.img_name[item]
         label = self.img_label[item]
         try:
-            image_object = self.image_processor(image_name)
+            image_object = self.image_processor(image_name, size=input_size)
             return image_object, label
         except Exception as e:
             print("error read ", image_name, e)
             # os.remove(image_name)
             image_name = self.img_name[0]
             _label = self.img_label[0]
-            _image_object = self.image_processor(image_name)
+            _image_object = self.image_processor(image_name, size=input_size)
             return _image_object, _label
 
 
 class AutoSportDataset(Dataset):
-    def __init__(self, img_path, image_label_dict, input_size,image_processor=ImageDataProcess.image_normalize):
+    def __init__(self, img_path, image_label_dict, size, image_processor=ImageDataProcess.image_normalize):
         self.img_dir_name = []
         self.img_dir_label = []
-        self.input_size = input_size
+        self.input_size = size
         for k, v in image_label_dict.items():
             self.img_dir_name.append(os.path.join(img_path, k))
             self.img_dir_label.append(v)

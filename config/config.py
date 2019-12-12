@@ -13,7 +13,7 @@ cuda_flag = torch.cuda.is_available()
 image_normalize_mean = [0.485, 0.456, 0.406]
 image_normalize_std = [0.229, 0.224, 0.225]
 
-train_type = 'golf'
+train_type = 'golf_ske'
 
 
 '''
@@ -25,10 +25,10 @@ config_data_path = os.path.join(project_path, "data", train_type)
 #是否finetune（true：不finetune）
 feature_extract = False
 
-batch_size = 64
+batch_size = 16
 epoch_nums = 1
 
-pre_train_model_name = "squeezenet"
+pre_train_model_name = "inception"
 # 模型的图片输入尺寸
 input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224,
                    "squeezenet":224, "LeNet": 28, "mobilenet":224, "shufflenet": 224}
@@ -50,7 +50,7 @@ drown_dict = {"drown_im_ske": 0, "normal_im_ske": 1}
 
 if train_type == "yoga":
     img_label_dict = yoga_label_dict
-elif train_type == "golf":
+elif train_type == "golf_ske":
     img_label_dict = golf_ske_label_dict
 elif train_type == "yoga_separate":
     img_label_dict = yoga_separate_dict
@@ -73,7 +73,7 @@ golf_label = ["Backswing", "Standing", "FollowThrough"]
 test_model_path = "test/model/golf_ske_shufflenet_2019-10-11-12-42-10.pth"
 test_sample_path = 'test/test_golf'
 
-if train_type == "golf":
+if test_type == "golf":
     test_label = golf_label
 else:
     raise ValueError("Your type is wrong. Please check again")
@@ -88,16 +88,13 @@ else:
 
 # 自动训练参数
 auto_train_type = 'drown'
-autotrain_folder = "drown_1212"
-val_ratio_ls = [0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
-epoch_ls = [20]
-pre_train_ls = ["shufflenet"]
-learning_rate_ls = [0.001, 0.0005, 0.00025]
+autotrain_folder = "drown_1213"
+val_ratio_ls = [0.1]
+epoch_ls = [1]
+pre_train_ls = ["inception", "shufflenet"]
+learning_rate_ls = [0.001]
 
 auto_golf_label_dict = {"backswing": 0, "final": 1}
-# auto_yoga_label_dict = {"boat-left": 0, "boat-right": 1, "camel-left": 2, "camel-right": 3, "chair-left": 4,
-#                         "chair-right": 5, "cow-left": 6, "cow-right": 7, "tree_left": 8, "tree_right": 9,
-#                         "triangle_left": 10, "triangle_right": 11}
 auto_yoga_label_dict = {"boat-left": 0, "boat-right": 1, "chair-left": 2, "chair-right": 3, "tree_left": 4,
                         "tree_right": 5, "triangle_left": 6, "triangle_right": 7}
 auto_golf_ske_label_dict = {"backswing": 0, "finish": 1, "standing": 2}
@@ -123,6 +120,8 @@ else:
     raise ValueError("Wrong train type!")
 
 auto_class_num = len(auto_train_label_dict)
+
+
 
 
 # 自动测试参数
