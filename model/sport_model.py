@@ -63,7 +63,7 @@ class ConvNet(nn.Module):
 
 
 class AutoSportModel(object):
-    def __init__(self, layer_num, num_classes=5, model_name="inception", model_path="", feature_extract=True,):
+    def __init__(self, num_classes=2, model_name="inception", model_path="", feature_extract=True):
         if model_name == "inception":
             self.model = models.inception_v3()
             self.model.load_state_dict(torch.load(model_path))
@@ -110,7 +110,7 @@ class AutoSportModel(object):
             self.model = models.mobilenet_v2()
             self.model.load_state_dict(torch.load(model_path, map_location=device))
             self.set_parameter_requires_grad(self.model, feature_extract)
-            self.classifier = nn.Sequential(
+            self.model.classifier = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(self.model.last_channel, num_classes),
             )
@@ -120,6 +120,16 @@ class AutoSportModel(object):
             self.set_parameter_requires_grad(self.model, feature_extract)
             num_ftrs = self.model.fc.in_features
             self.model.fc = nn.Linear(num_ftrs, num_classes)
+        elif model_name == "squeezenet":
+            self.model = models.squeezenet1_1()
+            self.model.load_state_dict(torch.load(model_path, map_location=device))
+            self.set_parameter_requires_grad(self.model, feature_extract)
+            self.model.classifier = nn.Sequential(
+                nn.Dropout(p=0.5),
+                nn.Conv2d(512, num_classes, kernel_size=1),
+                nn.ReLU(inplace=True),
+                nn.AdaptiveAvgPool2d((1, 1))
+            )
         else:
             raise ValueError("Your pretrain model name is wrong!")
 
@@ -177,7 +187,7 @@ class SportModel(object):
             self.model = models.mobilenet_v2()
             self.model.load_state_dict(torch.load(model_path, map_location=device))
             self.set_parameter_requires_grad(self.model, feature_extract)
-            self.classifier = nn.Sequential(
+            self.model.classifier = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(self.model.last_channel, num_classes),
             )
@@ -187,13 +197,15 @@ class SportModel(object):
             self.set_parameter_requires_grad(self.model, feature_extract)
             num_ftrs = self.model.fc.in_features
             self.model.fc = nn.Linear(num_ftrs, num_classes)
-        elif model_name == "mobilenet":
-            self.model = models.mobilenet_v2()
+        elif model_name == "squeezenet":
+            self.model = models.squeezenet1_1()
             self.model.load_state_dict(torch.load(model_path, map_location=device))
             self.set_parameter_requires_grad(self.model, feature_extract)
-            self.classifier = nn.Sequential(
-                nn.Dropout(0.2),
-                nn.Linear(self.model.last_channel, num_classes),
+            self.model.classifier = nn.Sequential(
+                nn.Dropout(p=0.5),
+                nn.Conv2d(512, num_classes, kernel_size=1),
+                nn.ReLU(inplace=True),
+                nn.AdaptiveAvgPool2d((1, 1))
             )
         else:
             raise ValueError("Your pretrain model name is wrong!")

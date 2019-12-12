@@ -5,7 +5,7 @@ from openpyxl import Workbook
 import torch
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-class_dict = ["backswing", "standing", "followthrough"]
+class_dict = ["backswing", "standing"]
 num_class = len(class_dict)
 
 
@@ -47,6 +47,8 @@ class ModelTester(object):
             self.pre_model_name = "shufflenet"
         elif "_LeNet" in self.path:
             self.pre_model_name = "LeNet"
+        elif "_squeezenet" in self.path:
+            self.pre_model_name = "squeezenet"
         else:
             raise ValueError("Wrong name of pre-train model")
         self.pre_model_path = os.path.join("model/pre_train_model/%s.pth" % self.pre_model_name)
@@ -60,6 +62,7 @@ class ModelTester(object):
             image = cv2.imread(os.path.join(sample, video_name))
             print(self.video_name)
             self.flag, self.score = self.model.test_image(image)
+            print(self.score)
             idx = self.score[0].tolist().index(max(self.score[0].tolist()))
             print("Predicted action is: {}".format(class_dict[idx]))
             self.record_result()
@@ -97,7 +100,7 @@ class ModelTester(object):
 
 
 if __name__ == "__main__":
-    model_path = "test/model/golf_ske_resnet34_2019-10-09-20-03-45.pth"
+    model_path = "test/model/drown_squeezenet_2019-12-12-18-31-41.pth"
     sample_path = 'test/test1'
     record_path = model_path.replace(".pth", '_result.xlsx')
     Tester = ModelTester(model_path, sample_path, record_path)

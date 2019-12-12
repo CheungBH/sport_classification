@@ -13,7 +13,7 @@ cuda_flag = torch.cuda.is_available()
 image_normalize_mean = [0.485, 0.456, 0.406]
 image_normalize_std = [0.229, 0.224, 0.225]
 
-train_type = 'yoga'
+train_type = 'drown'
 
 
 '''
@@ -26,11 +26,12 @@ config_data_path = os.path.join(project_path, "data", train_type)
 feature_extract = False
 
 batch_size = 64
-epoch_nums = 20
+epoch_nums = 1
 
-pre_train_model_name = "shufflenet"
+pre_train_model_name = "squeezenet"
 # 模型的图片输入尺寸
-input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224, "CNN":224, "LeNet": 28, "mobilenet":224, "shufflenet": 224}
+input_size_dict = {"inception":299, "resnet18":224, "resnet34":224, "resnet50":224, "resnet101":224, "resnet152":224,
+                   "squeezenet":224, "LeNet": 28, "mobilenet":224, "shufflenet": 224}
 image_input_size = input_size_dict[pre_train_model_name]
 pre_train_model_path = os.path.join(project_path, "model/pre_train_model/%s.pth" % pre_train_model_name)
 
@@ -49,6 +50,7 @@ yoga_separate_dict = {"boat-left": 0, "boat-right": 1, "bow-left": 2, "bow-right
                       "camel-left": 6, "camel-right": 7, "chair-left": 8, "chair-right": 9, "cobra-left": 10,
                       "cobra-right": 11, "cow-left": 12, "cow-right": 13}
 yoga_bothlr_dict = {"boat": 0, "bow": 1, "bridge": 2, "camel": 3, "chair": 4, "cobra": 5, "cow": 6}
+drown_dict = {"drown_im_ske":0, "normal_im_ske":1}
 
 if train_type == "golf":
     img_label_dict = golf_label_dict
@@ -60,6 +62,8 @@ elif train_type == "yoga_separate":
     img_label_dict = yoga_separate_dict
 elif train_type == "yoga_bothlr":
     img_label_dict = yoga_bothlr_dict
+elif train_type == 'drown':
+    img_label_dict = drown_dict
 else:
     raise ValueError("Your type is wrong. Please check again")
 
@@ -67,9 +71,9 @@ train_class_nums = len(img_label_dict)
 
 
 # 自动训练参数
-auto_train_type = 'yoga'
-autotrain_folder = "1030"
-val_ratio_ls = [0.1, 0.15, 0.2, 0.25, 0.3]
+auto_train_type = 'drown'
+autotrain_folder = "drown_1212"
+val_ratio_ls = [0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
 epoch_ls = [20]
 pre_train_ls = ["shufflenet"]
 learning_rate_ls = [0.001, 0.0005, 0.00025]
@@ -85,6 +89,7 @@ auto_yoga_separate_dict = {"boat-left": 0, "boat-right": 1, "bow-left": 2, "bow-
                            "bridge-right": 5, "camel-left": 6, "camel-right": 7, "chair-left": 8, "chair-right": 9,
                            "cobra-left": 10, "cobra-right": 11, "cow-left": 12, "cow-right": 13}
 auto_yoga_bothlr_dict = {"boat": 0, "bow": 1, "bridge": 2, "camel": 3, "chair": 4, "cobra": 5, "cow": 6}
+auto_drown_dict = {"drown_im_ske":0, "normal_im_ske":1}
 
 if auto_train_type == "golf":
     auto_train_label_dict = auto_golf_label_dict
@@ -96,6 +101,8 @@ elif auto_train_type == "yoga_separate":
     auto_train_label_dict = auto_yoga_separate_dict
 elif auto_train_type == "yoga_bothlr":
     auto_train_label_dict = auto_yoga_bothlr_dict
+elif auto_train_type == "drown":
+    auto_train_label_dict = auto_drown_dict
 else:
     raise ValueError("Wrong train type!")
 

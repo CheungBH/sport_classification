@@ -2,8 +2,8 @@ import os
 import random
 import shutil
 
-catag = "golf_ske"
-val_ratio = 0.3
+catag = "yoga"
+val_ratio = 0.01
 class_mark = "all"
 
 
