@@ -3,10 +3,13 @@ import os
 import cv2
 from openpyxl import Workbook
 import torch
+from config import config
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-class_dict = ["backswing", "standing"]
+class_dict = config.test_label
 num_class = len(class_dict)
+model_path = config.test_model_path
+sample_path = config.test_sample_path
 
 
 class ModelTester(object):
@@ -61,7 +64,7 @@ class ModelTester(object):
             self.video_name = video_name
             image = cv2.imread(os.path.join(sample, video_name))
             print(self.video_name)
-            self.flag, self.score = self.model.test_image(image)
+            self.score = self.model.predict(image)
             print(self.score)
             idx = self.score[0].tolist().index(max(self.score[0].tolist()))
             print("Predicted action is: {}".format(class_dict[idx]))
@@ -100,9 +103,6 @@ class ModelTester(object):
 
 
 if __name__ == "__main__":
-    model_path = "test/model/drown_squeezenet_2019-12-12-18-31-41.pth"
-    sample_path = 'test/test1'
     record_path = model_path.replace(".pth", '_result.xlsx')
     Tester = ModelTester(model_path, sample_path, record_path)
     Tester.test_model()
-
